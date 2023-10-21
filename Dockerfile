@@ -4,7 +4,7 @@ LABEL authors="QianheYu"
 WORKDIR /src
 COPY . .
 
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git wget
 
 RUN make build
 
@@ -14,7 +14,7 @@ LABEL all-in-one=true
 
 RUN apt-get update && apt-get install -y ca-certificates
 
-RUN mkdir -p /etc/headscale-panel && mkdir -p /etc/headscale && mkdir -p /var/lib/headscale && mkdir -p /var/run/headscale
+RUN mkdir -p /etc/headscale-panel && mkdir -p /etc/headscale && mkdir -p /var/lib/headscale && mkdir -p /var/run/headscale && wget /bin/headscale https://github.com/juanfont/headscale/releases/download/v0.22.3/headscale_0.22.3_linux_amd64 && chmod +x /bin/headscale
 
 COPY --from=build /src/bin/headscale-panel /bin/headscale-panel
 ENV TZ UTC
